@@ -1,17 +1,28 @@
 import Ember from "ember";
 
-export default Ember.Route.extend({
-	/*model: function() {
-		return Ember.$.getJSON('http://localhost:4001/states', function (json) {
-            console.log(json);
-        });
-	}*/
-
-	model: function() {
-		return states;
-	}
-
+var StatesRoute = Ember.Route.extend({
+     model: function() {
+          return Ember.$.getJSON('http://localhost:4000/states', function (json) {
+               console.log('Returning States from API:');
+               console.log(json);
+          });
+     }
 });
+
+export default StatesRoute;
+
+// export default Ember.Route.extend({
+// 	model: function() {
+// 		return Ember.$.getJSON('http://localhost:4000/states', function (json) {
+//             console.log(json);
+//         });
+// 	}
+
+// 	// model: function() {
+// 	// 	return states;
+// 	// }
+
+// });
 
 
 var states = [{

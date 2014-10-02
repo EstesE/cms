@@ -3,14 +3,12 @@
 	<div class="col-xs-5 col-sm-2">
 		{{#each}}
 			<div class="row">
-				{{#link-to 'state' this}}{{name}}{{/link-to}}
+				{{#link-to 'state' this.name}}{{name}}{{/link-to}}
 			</div>
 		{{/each}}
 	</div>
 	<div class="col-xs-7 col-sm-10">
-		<span>---------------------------------------------------------------------------</span><br/>
-		{{output}}
-		<span>---------------------------------------------------------------------------</span>
+		{{partial "state"}}
 	</div>
 </div>
 

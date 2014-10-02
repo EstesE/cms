@@ -14,7 +14,7 @@ Router.map(function() {
 
 	this.resource('properties');
 	// this.route('property');
-	// this.route('state');
+	//this.route('state');
 });
 
 export default Router;
