@@ -27,6 +27,7 @@ var extraAssets = pickFiles('app', {
 
 // Boostrap
 app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+app.import('bower_components/html5sortable/jquery.sortable.js');
 app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', {
   destDir: 'assets'
 });

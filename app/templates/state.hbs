@@ -1,3 +1,141 @@
-{{name}}
-{{summary}}
+
+{{#if name}}
+<div class="container">
+	<h2>{{name}}</h2>
+	<div class="container">
+		<ul class="nav nav-tabs" style="margin: 15px 0;">
+			<li class="active" style="font-size: 1.0em;"><a href="#general" data-toggle="tab"><strong>General Information</strong></a>
+			</li>
+			<li style="font-size: 1.0em;"><a href="#photos" data-toggle="tab"><strong>Photos</strong></a></li>
+			<li style="font-size: 1.0em;"><a href="#meta" data-toggle="tab"><strong>Meta</strong></a></li>
+		</ul>
+	</div>
+
+	<div id='links' class='tab-content container'>
+
+		<!-- GENERAL TAB -->
+		<div class="tab-pane active" id="general">
+			<div class="panel-info">
+				<div class="panel-body" style='padding:0;'>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Details</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group col-md-9">
+								<label for="stateName">Name</label>
+								{{input type="text" class="form-control" id="stateName" name="stateName" placeholder="State Name" value=name}}
+							</div>
+
+							<div class="form-group col-md-3">
+								<label for="stateAbbreviation">Abbreviation</label>
+								{{input type="text" class="form-control" id="stateAbbreviation" name="stateAbbreviation" placeholder="State Abbreviation" value=abbreviation}}
+							</div>
+							<div class="form-group col-md-12" style=''>
+								<label for="summary">Summary</label>
+								{{textarea id="summary" name="summary" class="form-control" rows="6" value=summary}}
+							</div>
+							<div class="form-group col-md-12" style=''>
+								<label for="summary">Disclaimer</label>
+								{{textarea id="stateDisclaimer" name="stateDisclaimer" class="form-control" rows="2" value=disclaimer}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PHOTOS TAB -->
+		<div class="tab-pane" id="photos">
+			<div class="panel-info">
+				<div class="panel-body" style='padding:0;'>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Gallery</h3>
+						</div>
+						<div class="panel-body">
+							{{#each gallery}}
+							<div class='col-md-4 col-sm-6 col-xs-12'>
+								<div style="text-align: center;"><strong>{{title}}</strong></div>
+								<a {{bind-attr href=src.large}} {{bind-attr title=title}}>
+									<img {{bind-attr src=src.small}} class='thumbnail img-responsive' style='margin-left: auto; margin-right: auto;'>
+								</a>
+							</div>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- META TAB -->
+		<div class="tab-pane" id="meta">
+			<div class="panel-info">
+				<div class="panel-body" style='padding:0;'>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Meta Data</h3>
+						</div>
+						<div class="panel-body">
+
+							<div class="form-group col-md-12">
+								<label for="stateName">Page Title</label>
+								{{input type="text" class="form-control" id="stateMetaTitle" name="stateMetaTitle" placeholder="State Page Title" value=meta.title }}
+							</div>
+
+							<div class="form-group col-md-12" style=''>
+								<label for="summary">Description</label>
+								{{textarea id="stateMetaDescription" name="stateMetaDescription" class="form-control" rows="2" value=meta.description}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+{{#each gallery}}
+    <!-- Modal Start -->
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+    <div class="modal fade" id="{{unbound _id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 845px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <!--<img src="" id="modal-image">-->
+                    <img {{bind-attr src=src.large}} alt="Logo">
+                </div>
+
+                <form role="form">
+                    <div class="form-group" style="padding: 20px;">
+                        <label for="title">Title:</label>
+                        {{input type="text" class="form-control" placeholder="Title" value=title }}
+                        <label for="description">Description:</label>
+                        {{input type="text" class="form-control" placeholder="Description" value=description }}
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="disabled btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+{{/each}}
+
+{{/if}}
+
+
 {{outlet}}

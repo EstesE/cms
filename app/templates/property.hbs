@@ -1,3 +1,174 @@
-{{outlet}}
+{{#if name}}
+<div class="container">
+	<h2>{{name}}</h2>
 
-single property goes here
+	<div class="container">
+		<ul class="nav nav-tabs" style="margin: 15px 0;">
+			<li class="active" style="font-size: 1.0em;"><a href="#general" data-toggle="tab"><strong>General
+				Information</strong></a>
+			</li>
+			<li style="font-size: 1.0em;"><a href="#photos" data-toggle="tab" {{action 'setSortable'}}><strong>Photos</strong></a></li>
+			<li style="font-size: 1.0em;"><a href="#meta" data-toggle="tab"><strong>Meta</strong></a></li>
+		</ul>
+	</div>
+
+	<div id='links' class='tab-content container'>
+
+		<div class="tab-pane active" id="general">
+			<div class="panel-info">
+				<div class="panel-body" style='padding:0;'>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Details</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group col-md-9">
+								<label for="name">Name</label>
+								{{input type="text" class="form-control" id="name" name="name" placeholder="Name" value=name}}
+							</div>
+
+							<div class="form-group col-md-3">
+								<label for="stateAbbreviation">State Abbreviation</label>
+								{{input type="text" class="form-control" id="abbreviation" name="abbreviation" placeholder="State Abbreviation" value=address.state.abbreviation}}
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="email">Email Address</label>
+								{{input type="text" class="form-control" id="email" name="email" placeholder="Email Address" value=email}}
+							</div>
+							<div class="form-group col-md-6">
+								<label for="domainName">Domain Name</label>
+								{{input type="text" class="form-control" id="domainName" name="domainName" placeholder="Domain Name" value=domainName}}
+							</div>
+
+							<div class="form-group col-md-12" style=''>
+								<label for="summary">Description</label>
+								{{textarea id="description" name="description" class="form-control" rows="6" value=description}}
+							</div>
+
+							<div class="form-group col-md-6" style=''>
+								<label for="summary">Logo</label>
+								<img {{bind-attr src=logo}}
+								class='thumbnail img-responsive'
+								style='margin-left: auto; margin-right: auto;'>
+							</div>
+
+							<div class="form-group col-md-6" style=''>
+								<!--<label for="summary">Social Networks</label>-->
+								<fieldset>
+									<legend>Social Networks</legend>
+									{{#each socialNetworks}}
+									<div class="col-row-3"><label for="{{title}}">{{title}}</label></div>
+									<div class="col-row-9"><input
+										type="text" {{bind-attr title=title}} {{bind-attr description=description}} {{bind-attr value=src}}
+										class="form-control" style="width: 70%;"/></div>
+										{{/each}}
+									</fieldset>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="photos" {{action 'setSortable'}}>
+				<div class="panel-info">
+					<div class="panel-body" style='padding:0;'>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Gallery</h3>
+							</div>
+							<div class="panel-body">
+								<ul class="sortable grid" style="list-style-type: none;">
+									<!--<li class="sortable-placeholder">X</li>-->
+									{{#each gallery}}
+									<li draggable="true">
+										<div class='col-md-4 col-sm-6 col-xs-12'>
+											<div style="text-align: center;"><strong>{{title}}</strong></div>
+											<a href="#" {{bind-attr title=title}} data-toggle="modal"
+											data-target="#{{unbound _id}}">
+											<img {{bind-attr src=src.small}} {{bind-attr title=title}} {{bind-attr description=description}}
+											class='thumbnail img-responsive' {{action 'openModal'}}
+											style='margin-left: auto; margin-right: auto;'>
+										</a>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-pane" id="meta">
+			<div class="panel-info">
+				<div class="panel-body" style='padding:0;'>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Meta Data</h3>
+						</div>
+						<div class="panel-body">
+
+							<div class="form-group col-md-12">
+								<label for="stateName">Page Title</label>
+								{{input type="text" class="form-control" id="stateMetaTitle" name="stateMetaTitle" placeholder="State Page Title" value=meta.title }}
+							</div>
+
+							<!--<div class="form-group col-md-12" style=''>-->
+							<li class="col-md-3" draggable="true">
+								<label for="summary">Description</label>
+								{{textarea id="stateMetaDescription" name="stateMetaDescription" class="form-control" rows="2" value=meta.description}}
+							</li>
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+{{#each gallery}}
+<!-- Modal Start -->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<div class="modal fade" id="{{unbound _id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content" style="">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span
+				aria-hidden="true">&times;</span><span
+				class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+			</div>
+			<div class="modal-body text-center">
+				<!--<img src="" id="modal-image">-->
+				<img {{bind-attr src=src.large}} alt="Logo" style="width: 100%;">
+			</div>
+
+			<form role="form">
+				<div class="form-group" style="padding: 20px;">
+					<label for="title">Title:</label>
+					{{input type="text" class="form-control" placeholder="Title" value=title }}
+					<label for="description">Description:</label>
+					{{input type="text" class="form-control" placeholder="Description" value=description }}
+				</div>
+			</form>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="disabled btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal End -->
+{{/each}}
+
+{{/if}}
+
+{{outlet}}

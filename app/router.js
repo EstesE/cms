@@ -12,7 +12,11 @@ Router.map(function() {
 		this.resource('state', { path: ':name' });
 	});
 
-	this.resource('properties');
+	this.resource('properties', function() {
+		this.resource('property', { path: ':name' });
+	});
+
+	//this.resource('properties');
 	// this.route('property');
 	//this.route('state');
 });
